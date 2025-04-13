@@ -1,15 +1,67 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-    
         {
-            "name": "Python Debugger: Python File",
+            "name": "Python: FastAPI",
             "type": "debugpy",
             "request": "launch",
-            "program": "${file}"
+            "module": "uvicorn",
+            "args": [
+                "backend.server.server:app",
+                "--host",
+                "0.0.0.0",
+                "--port",
+                "8000",  // Default Python debug port
+                "--reload"
+            ],
+            "jinja": true,
+            "justMyCode": true,
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            }
+        },
+        {
+            "name": "Python: Attach",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "localhost",
+                "port": 5678  // Default Python debugpy port
+            }
+        },
+        {
+            "name": "Next.js: Debug",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/frontend/nextjs",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run",
+                "dev"
+            ],
+            "console": "integratedTerminal",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "env": {
+                "NODE_OPTIONS": "--inspect=9229"
+            }
+        },
+        {
+            "name": "Node.js: Attach",
+            "type": "node",
+            "request": "attach",
+            "port": 9229,  // Default Node.js debug port
+            "address": "localhost",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Full Stack: Python + Next.js",
+            "configurations": ["Python: FastAPI", "Next.js: Debug"]
         }
     ]
 }
