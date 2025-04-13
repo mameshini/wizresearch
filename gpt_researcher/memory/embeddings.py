@@ -52,6 +52,8 @@ class Memory:
                     azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
                     openai_api_key=os.environ["AZURE_OPENAI_API_KEY"],
                     openai_api_version=os.environ["AZURE_OPENAI_API_VERSION"],
+                    chunk_size=100,  # Process 100 texts at a time
+                    max_retries=5,   # Number of retries on rate limit
                     **embdding_kwargs,
                 )
             case "cohere":
