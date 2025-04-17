@@ -11,7 +11,7 @@
                 "--host",
                 "0.0.0.0",
                 "--port",
-                "8000",  // Default Python debug port
+                "8000",
                 "--reload"
             ],
             "jinja": true,
@@ -26,7 +26,7 @@
             "request": "attach",
             "connect": {
                 "host": "localhost",
-                "port": 5678  // Default Python debugpy port
+                "port": 5678
             }
         },
         {
@@ -51,17 +51,53 @@
             "name": "Node.js: Attach",
             "type": "node",
             "request": "attach",
-            "port": 9229,  // Default Node.js debug port
+            "port": 9229,
             "address": "localhost",
             "skipFiles": [
                 "<node_internals>/**"
             ]
+        },
+        {
+            "name": "FastAPI: No Debug",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "python",
+            "runtimeArgs": [
+                "-m",
+                "uvicorn",
+                "backend.server.server:app",
+                "--host",
+                "0.0.0.0",
+                "--port",
+                "8000",
+                "--reload"
+            ],
+            "console": "integratedTerminal",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            }
+        },
+        {
+            "name": "Next.js: No Debug",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/frontend/nextjs",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run",
+                "dev"
+            ],
+            "console": "integratedTerminal"
         }
     ],
     "compounds": [
         {
             "name": "Full Stack: Python + Next.js",
             "configurations": ["Python: FastAPI", "Next.js: Debug"]
+        },
+        {
+            "name": "Full Stack: No Debug",
+            "configurations": ["FastAPI: No Debug", "Next.js: No Debug"]
         }
     ]
 }
